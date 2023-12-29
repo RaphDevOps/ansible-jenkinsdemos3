@@ -1,6 +1,6 @@
 ---
 - name: Install and configure Apache Tomcat
-  hosts: tomcat_servers
+  hosts: webservers
   become: true
   vars:
     pkg_name: tomcat
