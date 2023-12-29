@@ -9,7 +9,7 @@
 
   tasks:
     - name: Download Apache Tomcat archive
-      get_url:
+      ansible.builtin.get_url:  # Updated to ansible.builtin.get_url
         url: "{{ tomcat_url }}"
         dest: "/tmp/{{ pkg_name }}.tar.gz"
 
@@ -29,10 +29,12 @@
         path: "/etc/environment"
         line: "CATALINA_HOME=/opt/{{ pkg_name }}"
         create: yes
+      # Note: This change will not immediately apply to the current shell session.
 
     - name: Reload environment variables
-      ansible.builtin.command:
+      ansible.builtin.command:  # Using ansible.builtin.command instead of source
         cmd: "source /etc/environment"
+      # Note: This change will not immediately apply to the current shell session.
 
     - name: Start Tomcat service
       ansible.builtin.service:
